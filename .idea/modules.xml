@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/multiThreading.iml" filepath="$PROJECT_DIR$/multiThreading.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dynamicStack.iml" filepath="$PROJECT_DIR$/dynamicStack.iml" />
     </modules>
   </component>
 </project>

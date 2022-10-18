@@ -4,10 +4,9 @@ package com.company;
 import java.util.Arrays;
 
 class ArrayStack<T> {
-    private int size;
+    private final int size;
     private int top;
-    private int i;
-    Object[] stackArray;
+    private Object[] stackArray;
 
     public ArrayStack(int size) {
         top = -1;
@@ -19,22 +18,15 @@ class ArrayStack<T> {
         ensureCapacity(top + 2);
         top++;
         stackArray[top] = newItem;
-        i = top;
     }
 
     public void pop() {
-        if (isEmpty()) {
-            System.out.println("stack is empty");
-            return;
-        }
-        stackArray[top] = null;
-        top--;
-        i = top;
+        ensureCapacity(top + 2);
+        stackArray = Arrays.copyOf(stackArray,top--);
     }
 
-    public T outTop() {
-        T item = (T) stackArray[top];
-        return item;
+    public int stackSize() {
+        return stackArray.length;
     }
 
     public void ensureCapacity(int minCapacity) {
@@ -44,19 +36,21 @@ class ArrayStack<T> {
             if (newCapacity < minCapacity)
                 newCapacity = oldCapacity;
             stackArray = Arrays.copyOf(stackArray, newCapacity);
+        } else {
+            int newCapacity = oldCapacity / 2;
+            if (newCapacity < minCapacity)
+                newCapacity = oldCapacity;
+            stackArray = Arrays.copyOf(stackArray, newCapacity);
         }
     }
 
-    public void printItem() {
+    public void printStack() {
         if (isEmpty()) {
             System.out.println("stack is empty");
-        } else {
-            T item = (T) stackArray[i];
-            System.out.println(item);
-            i--;
-            if (i > -1) printItem();
-        }
-
+        } else
+            for (int i = stackArray.length - 1; i >= 0; i--) {
+                System.out.println(stackArray[i]);
+            }
     }
 
     public boolean isFull() {
@@ -71,14 +65,19 @@ class ArrayStack<T> {
 public class Main {
 
     public static void main(String[] args) {
-        var array = new ArrayStack(2);
-        System.out.println("size of array "+array.stackArray.length);
+        var array = new ArrayStack<>(2);
+        System.out.println("size of array " + array.stackSize());
         array.push(7);
         array.push(3);
-        array.push(5);
+        array.printStack();
+        array.push(5); // enter new element and increase size of stack multiply by 2
         array.push(8);
-        array.printItem();
-        System.out.println("size of array "+array.stackArray.length);
+        array.printStack();
+        System.out.println("size of array " + array.stackSize());
+        array.pop(); // remove top --> int 8
+        array.pop(); // remove top --> int 5 and reduce size of stack divide by 2
+        array.printStack();
+        System.out.println("size of array " + array.stackSize());
     }
 }
 
