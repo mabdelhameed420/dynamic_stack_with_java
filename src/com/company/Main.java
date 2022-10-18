@@ -44,6 +44,10 @@ class ArrayStack<T> {
         }
     }
 
+    public T getTop(){
+        return (T) stackArray[top];
+    }
+
     public void printStack() {
         if (isEmpty()) {
             System.out.println("stack is empty");
@@ -69,13 +73,16 @@ public class Main {
         System.out.println("size of array " + array.stackSize());
         array.push(7);
         array.push(3);
+        System.out.println("top" + array.getTop());
         array.printStack();
         array.push(5); // enter new element and increase size of stack multiply by 2
         array.push(8);
+        System.out.println("top" + array.getTop());
         array.printStack();
         System.out.println("size of array " + array.stackSize());
         array.pop(); // remove top --> int 8
         array.pop(); // remove top --> int 5 and reduce size of stack divide by 2
+        System.out.println("top" + array.getTop());
         array.printStack();
         System.out.println("size of array " + array.stackSize());
     }
