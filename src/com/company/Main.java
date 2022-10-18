@@ -16,13 +16,16 @@ class ArrayStack<T> {
 
     public void push(Object newItem) {
         ensureCapacity(top + 2);
-        top++;
-        stackArray[top] = newItem;
+        stackArray[++top] = newItem;
     }
 
     public void pop() {
-        ensureCapacity(top + 2);
-        stackArray = Arrays.copyOf(stackArray,top--);
+        if (isEmpty()) {
+            System.out.println("stack is empty");
+        } else {
+            ensureCapacity(top + 2);
+            stackArray = Arrays.copyOf(stackArray, top--);
+        }
     }
 
     public int stackSize() {
@@ -44,7 +47,7 @@ class ArrayStack<T> {
         }
     }
 
-    public T getTop(){
+    public T peek() {
         return (T) stackArray[top];
     }
 
@@ -73,16 +76,16 @@ public class Main {
         System.out.println("size of array " + array.stackSize());
         array.push(7);
         array.push(3);
-        System.out.println("top" + array.getTop());
+        System.out.println("top " + array.peek());
         array.printStack();
         array.push(5); // enter new element and increase size of stack multiply by 2
         array.push(8);
-        System.out.println("top" + array.getTop());
+        System.out.println("top " + array.peek());
         array.printStack();
         System.out.println("size of array " + array.stackSize());
         array.pop(); // remove top --> int 8
         array.pop(); // remove top --> int 5 and reduce size of stack divide by 2
-        System.out.println("top" + array.getTop());
+        System.out.println("top " + array.peek());
         array.printStack();
         System.out.println("size of array " + array.stackSize());
     }
